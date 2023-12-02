@@ -1,0 +1,23 @@
+let users = [
+    {
+        fname: `Moshe`,
+        lname: `David`,
+        email: `moshed@email.com`,
+        password: `Qaz123!qaz`,
+        isLogedIn: false,
+    },
+    {
+        fname: `Mickael`,
+        lname: `Allouche`,
+        email: `mickaela@email.com`,
+        password: `mickael123`,
+        isLogedIn: false,
+    },
+    {
+        fname: `Fiona`,
+        lname: `Allouche`,
+        email: `fionaa@email.com`,
+        password: `fiona123`,
+        isLogedIn: false,
+    }
+];
