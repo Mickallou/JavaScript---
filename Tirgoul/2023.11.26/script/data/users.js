@@ -19,5 +19,12 @@ let users = [
         email: `fionaa@email.com`,
         password: `fiona123`,
         isLogedIn: false,
-    }
+    },
+    {
+        fname: `Joe`,
+        lname: `Cohen`,
+        email: `joec@email.com`,
+        password: `joe123`,
+        isLogedIn: false,
+    },
 ];
