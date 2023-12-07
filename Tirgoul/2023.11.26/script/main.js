@@ -55,6 +55,7 @@ for (let user of users) {
     btnDelete.addEventListener('click', () => {
         usersTable.deleteRow(row.rowIndex);
     });
+
 }
 
 
@@ -72,19 +73,13 @@ submitBtn.addEventListener(`click`, (event) => {
         let cell = row.insertCell();
         cell.textContent = user[key];
     }
-    // clean the form
-    // event.target.form[0].value = ``;
-    // event.target.form[1].value = ``;
-    // event.target.form[2].value = ``;
-    // event.target.form[3].value = ``;
-
-    //document.getElementById(`regForm`).reset();
 
     for (let input of event.target.form) {
         if (input.id != `submitBtn`) {
             input.value = ``;
         }
     }
+
     let cellBtn = row.insertCell();
     let newBtn = document.createElement(`div`);
     newBtn.id = (`btn5`);
@@ -131,6 +126,4 @@ submitBtn.addEventListener(`click`, (event) => {
     btnDelete.addEventListener('click', () => {
         usersTable.deleteRow(row.rowIndex);
     });
-
 })
-
