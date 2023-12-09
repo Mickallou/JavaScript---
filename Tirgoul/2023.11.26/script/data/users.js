@@ -27,4 +27,11 @@ let users = [
         password: `joe123`,
         isLogedIn: false,
     },
+    {
+        fname: `Jack`,
+        lname: `Cohen`,
+        email: `jackc@email.com`,
+        password: `jack123`,
+        isLogedIn: false,
+    }
 ];

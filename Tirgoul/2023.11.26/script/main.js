@@ -7,7 +7,7 @@ for (let user of users) {
     for (let key in user) {
         let cell = row.insertCell();
         cell.textContent = user[key];
-    }
+    };
 
     let cellBtn = row.insertCell();
     let newBtn = document.createElement(`div`);
