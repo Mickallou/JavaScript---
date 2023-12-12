@@ -2,9 +2,10 @@ const xhr = new XMLHttpRequest();
 const usersTable = document.querySelector(`.users-table`);
 
 function transferComplete() {
-    const objResponse = JSON.parse(xhr.responseText);
+    const objectResponse = JSON.parse(xhr.responseText);
+    console.log(objectResponse);
 
-    for (let i of objResponse) {
+    for (let i of objectResponse) {
         let row = usersTable.insertRow();
         for (let a in i) {
             let cell = row.insertCell();
@@ -15,5 +16,11 @@ function transferComplete() {
 }
 xhr.addEventListener(`load`, transferComplete)
 
-xhr.open(`GET`, `https://jsonplaceholder.typicode.com/users`);
+xhr.open(`GET`, `https://dummyjson.com/users`);
 xhr.send();
+
+
+
+
+
+
