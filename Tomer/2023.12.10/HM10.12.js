@@ -1,7 +1,6 @@
 const getData = (country) => {
     const myPromise = new Promise((resolve, reject) => {
         const xhr = new XMLHttpRequest();
-        xhr.open(`GET`, `https://restcountries.com/v3.1/name/${country}`);
         xhr.onload = () => {
             if (xhr.status === 200) {
                 resolve(xhr.response);
@@ -9,6 +8,7 @@ const getData = (country) => {
                 reject(xhr.status);
             }
         };
+        xhr.open(`GET`, `https://restcountries.com/v3.1/name/${country}`);
         xhr.send();
     });
     myPromise
@@ -19,11 +19,11 @@ const getData = (country) => {
             theFlag.src = countries[0].flags.png;
         })
         .catch((error) => {
-            alert(`Is not a country: ${error}dfff`);
+            alert(`Is not a country: ${error}`);
         });
 }
 const printData = () => {
     let country = prompt(`Please enter a country`);
     getData(country)
 }
-printData();
+document.getElementById(`btnload`).addEventListener(`click`, printData);
