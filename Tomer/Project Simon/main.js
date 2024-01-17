@@ -13,7 +13,7 @@ function initGame() {
 }
 
 //Function (B)
-function playRound(){
+function playRound() {
     //1: Create step
     const newStep = createStep();
     arrRound.push(newStep);
@@ -25,12 +25,12 @@ function playRound(){
 
 }
 
-function userTurn(){
+function userTurn() {
     // Get input from user
     const inputUser = prompt("Please enter your guess:")
 
     // Compare user input with computer's input
-    if (+inputUser === arrRound[0]){
+    if (+inputUser === arrRound[0]) {
         console.log('You guessed correctly!');
         initGame();
         // gameCounter++;
@@ -44,7 +44,7 @@ function userTurn(){
 //1: Creates a random number from 1 to 4
 //2: returns the result and/or the color
 function createStep() {
-return Math.floor(Math.random() * 4) + 1;
+    return Math.floor(Math.random() * 4) + 1;
 }
 
 initGame();
