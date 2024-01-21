@@ -1,129 +1,81 @@
-const usersTable = document.querySelector(`.users-table`);
-const submitBtn = document.querySelector(`#submitBtn`);
+const usersTable = document.querySelector('.users-table');
+const submitBtn = document.querySelector('#submitBtn');
+let users = [];
 
-for (let user of users) {
-    let row = usersTable.insertRow();
-
-    for (let key in user) {
-        let cell = row.insertCell();
-        cell.textContent = user[key];
-    };
-
-    let cellBtn = row.insertCell();
-    let newBtn = document.createElement(`div`);
-    newBtn.id = (`btn5`);
-    cellBtn.appendChild(newBtn);
-    newBtn.style.display = `flex`;
-    newBtn.style.gap = `5px`;
-
-    let btnOne = document.createElement(`button`);
-    btnOne.id = `oneBtn`
-    btnOne.className = `conBtn`
-    newBtn.appendChild(btnOne);
-
-    btnOne.style.backgroundColor = `green`;
-    btnOne.textContent = `Connected`;
-
-    let btnTwo = document.createElement(`button`);
-    btnTwo.id = `twoBtn`
-    btnTwo.className = `conBtn`
-    newBtn.appendChild(btnTwo);
-
-    btnTwo.style.backgroundColor = `red`;
-    btnTwo.textContent = `Disconneted`;
-
-    let btnDelete = document.createElement(`button`);
-    btnDelete.id = `deleteBtn`
-    btnDelete.className = `conBtn`
-    newBtn.appendChild(btnDelete);
-
-    btnDelete.style.backgroundColor = `yellow`;
-    btnDelete.textContent = `Delete`;
-
-    btnOne.addEventListener('click', () => {
-        user.isLogedIn = true;
-
-        let cell = row.cells[4];
-        cell.textContent = `true`
-    });
-    btnTwo.addEventListener('click', () => {
-        user.isLogedIn = false;
-
-        let cell = row.cells[4];
-        cell.textContent = `false`
-    });
-    btnDelete.addEventListener('click', () => {
-        usersTable.deleteRow(row.rowIndex);
-    });
-
+function updateLocalStorage() {
+    localStorage.setItem('users', JSON.stringify(users));
 }
 
+function createButton(text, bgColor, clickHandler) {
+    const button = document.createElement('button');
+    button.className = 'conBtn';
+    button.style.backgroundColor = bgColor;
+    button.textContent = text;
+    button.addEventListener('click', clickHandler);
+    return button;
+}
 
-submitBtn.addEventListener(`click`, (event) => {
-    event.preventDefault();
-    const user = {
-        fname: event.target.form[`fname`].value,
-        lname: event.target.form[`lname`].value,
-        email: event.target.form[`email`].value,
-        password: event.target.form['password'].value,
-        isLogedIn: false,
-    }
-    let row = usersTable.insertRow();
+function createUserRow(user) {
+    const row = usersTable.insertRow();
     for (let key in user) {
         let cell = row.insertCell();
         cell.textContent = user[key];
     }
 
+    const cellBtn = row.insertCell();
+    const newBtn = document.createElement('div');
+    newBtn.id = 'btn5';
+    cellBtn.appendChild(newBtn);
+    newBtn.style.display = 'flex';
+    newBtn.style.gap = '5px';
+
+    newBtn.appendChild(createButton('Connected', 'green', () => updateUserStatus(user, true)));
+    newBtn.appendChild(createButton('Disconnected', 'red', () => updateUserStatus(user, false)));
+    newBtn.appendChild(createButton('Delete', 'yellow', () => deleteUser(user)));
+}
+
+function updateUserStatus(user, isConnected) {
+    user.isLogedIn = isConnected;
+    const rowIndex = users.findIndex(u => u === user);
+    const cell = usersTable.rows[rowIndex + 1].cells[4]; // Assuming the status is in the 5th column
+    cell.textContent = String(isConnected);
+    updateLocalStorage();
+}
+
+function deleteUser(user) {
+    const rowIndex = users.findIndex(u => u === user);
+    usersTable.deleteRow(rowIndex + 1); // Assuming the header row is present
+    users.splice(rowIndex, 1);
+    updateLocalStorage();
+}
+
+// Charger les utilisateurs existants depuis le localStorage
+const savedUsers = JSON.parse(localStorage.getItem('users'));
+if (savedUsers) {
+    users = savedUsers;
+    for (let user of users) {
+        createUserRow(user);
+    }
+}
+
+submitBtn.addEventListener('click', (event) => {
+    event.preventDefault();
+    const newUser = {
+        fname: event.target.form['fname'].value,
+        lname: event.target.form['lname'].value,
+        email: event.target.form['email'].value,
+        password: event.target.form['password'].value,
+        isLogedIn: false,
+    };
+
+    users.push(newUser);
+    createUserRow(newUser);
+    updateLocalStorage();
+
+    // Réinitialiser les champs du formulaire
     for (let input of event.target.form) {
-        if (input.id != `submitBtn`) {
-            input.value = ``;
+        if (input.id !== 'submitBtn') {
+            input.value = '';
         }
     }
-
-    let cellBtn = row.insertCell();
-    let newBtn = document.createElement(`div`);
-    newBtn.id = (`btn5`);
-    cellBtn.appendChild(newBtn);
-    newBtn.style.display = `flex`;
-    newBtn.style.gap = `5px`;
-
-    let btnOne = document.createElement(`button`);
-    btnOne.id = `oneBtn`
-    btnOne.className = `conBtn`
-    newBtn.appendChild(btnOne);
-
-    btnOne.style.backgroundColor = `green`;
-    btnOne.textContent = `Connected`;
-
-    let btnTwo = document.createElement(`button`);
-    btnTwo.id = `twoBtn`
-    btnTwo.className = `conBtn`
-    newBtn.appendChild(btnTwo);
-
-    btnTwo.style.backgroundColor = `red`;
-    btnTwo.textContent = `Disconneted`;
-
-    let btnDelete = document.createElement(`button`);
-    btnDelete.id = `deleteBtn`
-    btnDelete.className = `conBtn`
-    newBtn.appendChild(btnDelete);
-
-    btnDelete.style.backgroundColor = `yellow`;
-    btnDelete.textContent = `Delete`;
-
-    btnOne.addEventListener('click', () => {
-        user.isLogedIn = true;
-
-        let cell = row.cells[4];
-        cell.textContent = `true`
-    });
-    btnTwo.addEventListener('click', () => {
-        user.isLogedIn = false;
-
-        let cell = row.cells[4];
-        cell.textContent = `false`
-    });
-    btnDelete.addEventListener('click', () => {
-        usersTable.deleteRow(row.rowIndex);
-    });
-})
+});
