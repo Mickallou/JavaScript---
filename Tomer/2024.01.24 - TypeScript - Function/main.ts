@@ -60,3 +60,63 @@ const obj = {
 }
 
 console.log(obj.name, obj.age, obj.fn9('Hello')); // Tomer 30 Hello
+
+const avg = (arrNumber: number[]): number => {
+    let sum = 0;
+    for (let i = 0; i < arrNumber.length; i++) {
+        sum += arrNumber[i];
+    }
+    return sum / arrNumber.length;
+}
+
+// function that asks the user for a number, generates a ramdom number from 1 until the provided number and print to the console the name 'tomer' the number of times that the random number generated.
+function printName(num: number): void {
+    const random = Math.floor(Math.random() * num) + 1;
+    for (let i = 0; i < random; i++) {
+        console.log('Tomer');
+    }
+}
+
+printName(10);
+
+class Animal {
+    name: string;
+    color: string;
+    noOfLegs: number;
+    type: string;
+
+    constructor(name: string, color: string, noOfLegs: number, type: string) {
+        this.name = name;
+        this.color = color;
+        this.noOfLegs = noOfLegs;
+        this.type = type;
+    }
+}
+
+class Mammal extends Animal {
+    runningSpeed: number;
+
+    constructor(name: string, color: string, noOfLegs: number, type: string, runningSpeed: number) {
+        super(name, color, noOfLegs, type);
+        this.runningSpeed = runningSpeed;
+    }
+}
+
+class SeaCreature extends Animal {
+    canSwim: boolean;
+    speedInWater: number;
+
+    constructor(name: string, color: string, noOfLegs: number, type: string, canSwim: boolean, speedInWater: number) {
+        super(name, color, noOfLegs, type);
+        this.canSwim = canSwim;
+        this.speedInWater = speedInWater;
+    }
+}
+
+function printMultiplicationTable(num: number): void {
+    for (let i = 1; i <= 10; i++) {
+        console.log(`${num} x ${i} = ${num * i}`);
+    }
+}
+
+printMultiplicationTable(5);

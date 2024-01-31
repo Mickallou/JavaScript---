@@ -9,6 +9,8 @@ function playRound() {
     console.log('Computer:', arrRound);
 
     displayPattern();
+    gameCounter++;
+    document.getElementById('gameCounter').innerHTML = gameCounter;
 }
 
 function displayPattern() {
@@ -63,6 +65,12 @@ function createStep() {
     return Math.floor(Math.random() * 4) + 1;
 }
 
+function startGame() {
+    gameCounter = 0;
+    arrRound = [];
+    playRound();
+}
+
 const btnStart = document.getElementById('btnStart');
-btnStart.addEventListener('click', playRound);
+btnStart.addEventListener('click', startGame);
 
